@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 
 import {
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Heart
 } from "lucide-react";
+
+import { useWishlist } from "../context/WishlistContext";
 
 function ProductCard({
   product,
@@ -23,8 +26,15 @@ function ProductCard({
     useState(0);
 
   // CHECK IF ADMIN CARD
-  const isAdminCard =
-    onDelete && onEdit;
+  const isAdminCard = onDelete && onEdit;
+
+  // WISHLIST CONTEXT
+  const {
+    toggleWishlist,
+    isWishlisted
+  } = useWishlist();
+
+  const liked = isWishlisted(product.id);
 
   // NEXT IMAGE
   function nextImage() {
@@ -49,6 +59,20 @@ function ProductCard({
 
       {/* IMAGE SECTION */}
       <div className="relative h-72 bg-black flex items-center justify-center overflow-hidden">
+
+        {/* WISHLIST ICON (ONLY FOR SHOP / PUBLIC VIEW) */}
+        {!isAdminCard && (
+          <button
+            onClick={() => toggleWishlist(product)}
+            className="absolute top-3 right-3 bg-zinc-900/70 p-2 rounded-full hover:scale-110 transition"
+          >
+            <Heart
+              size={20}
+              fill={liked ? "red" : "none"}
+              color={liked ? "red" : "white"}
+            />
+          </button>
+        )}
 
         {/* IMAGE */}
         {images.length > 0 && (
@@ -102,7 +126,7 @@ function ProductCard({
           KES {product.price}
         </p>
 
-        {/* SHOW ONLY ON SHOP PAGE */}
+        {/* VIEW DETAILS (ONLY FOR SHOP / PUBLIC) */}
         {!isAdminCard && (
           <Link
             to={`/product/${product.id}`}
@@ -124,9 +148,7 @@ function ProductCard({
             </button>
 
             <button
-              onClick={() =>
-                onDelete(product.id)
-              }
+              onClick={() => onDelete(product.id)}
               className="bg-red-500 px-4 py-2 rounded-lg font-medium"
             >
               Delete
