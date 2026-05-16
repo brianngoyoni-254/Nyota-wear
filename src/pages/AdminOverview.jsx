@@ -17,9 +17,9 @@ import {
 function AdminOverview() {
   const [orders, setOrders] = useState([]);
 
-  // =========================
+  
   // REAL-TIME FETCH (POLLING)
-  // =========================
+  
   useEffect(() => {
     loadOrders();
 
@@ -39,14 +39,14 @@ function AdminOverview() {
     }
   }
 
-  // =========================
+
   // SAFE HELPERS
-  // =========================
+  
   const safeItems = (order) => order.items || [];
 
-  // =========================
+  
   // KPI CALCULATIONS (STATS CARDS)
-  // =========================
+  
 
   const totalOrders = orders.length;
 
@@ -68,9 +68,9 @@ function AdminOverview() {
   const avgOrderValue =
     totalOrders > 0 ? totalRevenue / totalOrders : 0;
 
-  // =========================
+  
   // DATE HELPERS
-  // =========================
+  
   function getDay(date) {
     if (!date) return "Unknown";
 
@@ -87,9 +87,9 @@ function AdminOverview() {
     });
   }
 
-  // =========================
+  
   // WEEKLY DATA
-  // =========================
+  
   const weekly = {};
 
   orders.forEach((order) => {
@@ -113,9 +113,9 @@ function AdminOverview() {
     0
   );
 
-  // =========================
+  
   // MONTHLY DATA
-  // =========================
+  
   const monthly = {};
 
   orders.forEach((order) => {
@@ -139,9 +139,9 @@ function AdminOverview() {
     0
   );
 
-  // =========================
+  
   // CATEGORY DATA
-  // =========================
+  
   const categories = {};
 
   orders.forEach((order) => {
@@ -162,9 +162,9 @@ function AdminOverview() {
 
   const COLORS = ["#ff7300", "#00c49f", "#ffbb28", "#0088fe"];
 
-  // =========================
+  
   // UI
-  // =========================
+  
   return (
     <div className="space-y-10">
 
@@ -172,7 +172,7 @@ function AdminOverview() {
         Admin Overview
       </h1>
 
-      {/* ================= STATS CARDS ================= */}
+      {/* STATS CARDS*/}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
 
         <div className="bg-zinc-900 p-4 rounded-xl">
@@ -213,7 +213,7 @@ function AdminOverview() {
 
       </div>
 
-      {/* ================= WEEKLY ================= */}
+      {/* WEEKLY */}
       <div className="bg-zinc-900 p-6 rounded-2xl">
         <h2 className="text-xl mb-4">
           Weekly Sales
@@ -241,7 +241,7 @@ function AdminOverview() {
         </p>
       </div>
 
-      {/* ================= MONTHLY ================= */}
+      {/*  MONTHLY */}
       <div className="bg-zinc-900 p-6 rounded-2xl">
         <h2 className="text-xl mb-4">
           Monthly Sales
@@ -269,7 +269,7 @@ function AdminOverview() {
         </p>
       </div>
 
-      {/* ================= CATEGORY PIE ================= */}
+      {/* ATEGORY PIE */}
       <div className="bg-zinc-900 p-6 rounded-2xl">
         <h2 className="text-xl mb-4">
           Category Revenue
