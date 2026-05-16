@@ -12,6 +12,7 @@ import AdminOverview from "./pages/AdminOverview";
 import AdminProducts from "./pages/AdminProducts";
 import AdminOrders from "./pages/AdminOrders";
 import AdminCategories from "./pages/AdminCategories";
+import Wishlist from "./pages/Wishlist";
 
 // fallback
 function ComingSoon({ title }) {
@@ -43,6 +44,7 @@ function App() {
           <Route path="categories" element={<AdminCategories />} />
           <Route path="orders" element={<AdminOrders />} />
         </Route>
+        <Route path="/wishlist" element={<Wishlist />} />
 
         {/* FALLBACK */}
         <Route path="*" element={<ComingSoon title="Page not found" />} />
