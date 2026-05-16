@@ -9,7 +9,7 @@ function Contact() {
 
       <div className="space-y-3 text-zinc-300">
         <p>Email: support@nyotawear.com</p>
-        <p>Phone: +254 700 000 000</p>
+        <p>Phone: +254 79706573</p>
         <p>Location: Nairobi, Kenya</p>
       </div>
 

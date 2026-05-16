@@ -25,12 +25,20 @@ function Footer() {
             </h3>
 
             <div className="flex flex-col gap-2 text-sm text-zinc-400">
+
+              {/* HOME LINK ADDED */}
+              <Link to="/" className="hover:text-white">
+                Home
+              </Link>
+
               <Link to="/about" className="hover:text-white">
                 About
               </Link>
+
               <Link to="/contact" className="hover:text-white">
                 Contact
               </Link>
+
               <Link to="/privacy" className="hover:text-white">
                 Privacy Policy
               </Link>

@@ -15,25 +15,64 @@ function AdminProducts() {
   const { products, categories, loading, reload } = useAdminData();
 
   const [editingProduct, setEditingProduct] = useState(null);
+  const [saving, setSaving] = useState(false);
 
-  // PRODUCTS
+  // =========================
+  // SAVE PRODUCT (FIXED + SAFE)
+  // =========================
   async function handleSaveProduct(form) {
-    if (editingProduct) {
-      await updateProduct(editingProduct.id, form);
-      setEditingProduct(null);
-    } else {
-      await addProduct(form);
+    try {
+      setSaving(true);
+
+      // 🔥 CLEAN DATA BEFORE SENDING TO BACKEND
+      const cleanedForm = {
+        ...form,
+        name: form.name?.trim(),
+        description: form.description?.trim(),
+        price: Number(form.price),
+        stock: Number(form.stock),
+        category: form.category,
+        images: Array.isArray(form.images) ? form.images : []
+      };
+
+      // REMOVE INVALID VALUES (extra safety)
+      if (!cleanedForm.name || !cleanedForm.category) {
+        alert("Name and category are required");
+        return;
+      }
+
+      if (editingProduct) {
+        await updateProduct(editingProduct.id, cleanedForm);
+        setEditingProduct(null);
+      } else {
+        await addProduct(cleanedForm);
+      }
+
+      await reload();
+    } catch (err) {
+      console.error("❌ SAVE FAILED:", err.message);
+      alert(err.message || "Failed to save product. Check backend.");
+    } finally {
+      setSaving(false);
     }
-
-    await reload();
   }
 
+  // =========================
+  // DELETE PRODUCT
+  // =========================
   async function handleDeleteProduct(id) {
-    await deleteProduct(id);
-    await reload();
+    try {
+      await deleteProduct(id);
+      await reload();
+    } catch (err) {
+      console.error("❌ DELETE FAILED:", err.message);
+      alert("Failed to delete product.");
+    }
   }
 
+  // =========================
   // LOADING STATE
+  // =========================
   if (loading) {
     return (
       <div className="p-6 text-zinc-400">
@@ -42,7 +81,9 @@ function AdminProducts() {
     );
   }
 
+  // =========================
   // UI
+  // =========================
   return (
     <section className="w-full max-w-full overflow-x-hidden space-y-8">
 
@@ -62,6 +103,12 @@ function AdminProducts() {
           editingProduct={editingProduct}
           onCancelEdit={() => setEditingProduct(null)}
         />
+
+        {saving && (
+          <p className="text-sm text-zinc-400 mt-2">
+            Saving product...
+          </p>
+        )}
       </div>
 
       {/* PRODUCTS GRID */}
