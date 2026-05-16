@@ -29,44 +29,135 @@ function ComingSoon({ title }) {
   );
 }
 
+/* PUBLIC PAGES (Navbar + Footer)*/
+function PublicLayout({ children }) {
+  return (
+    <>
+      <Navbar />
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </>
+  );
+}
+
+/* HOME PAGE (NO Navbar, NO Footer) */
+function HomeLayout() {
+  return (
+    <main className="flex-1">
+      <Home />
+    </main>
+  );
+}
+
+/* ADMIN LAYOUT (NO Navbar, BUT Footer ON) */
+function AdminWrapper({ children }) {
+  return (
+    <>
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </>
+  );
+}
+
 function App() {
   return (
     <div className="min-h-screen flex flex-col bg-black text-white">
 
-      {/* NAVBAR (always top) */}
-      <Navbar />
+      <Routes>
 
-      {/* PAGE CONTENT */}
-      <main className="flex-1">
-        <Routes>
+        {/* HOME (NO NAVBAR, NO FOOTER)*/}
+        <Route path="/" element={<HomeLayout />} />
 
-          {/* PUBLIC */}
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/privacy" element={<Privacy />} />
+        {/* PUBLIC PAGES */}
+        <Route
+          path="/shop"
+          element={
+            <PublicLayout>
+              <Shop />
+            </PublicLayout>
+          }
+        />
 
-          {/* ADMIN */}
-          <Route path="/admin" element={<AdminLayout />}>
-            <Route index element={<AdminOverview />} />
-            <Route path="products" element={<AdminProducts />} />
-            <Route path="categories" element={<AdminCategories />} />
-            <Route path="orders" element={<AdminOrders />} />
-          </Route>
+        <Route
+          path="/product/:id"
+          element={
+            <PublicLayout>
+              <ProductDetails />
+            </PublicLayout>
+          }
+        />
 
-          {/* FALLBACK */}
-          <Route path="*" element={<ComingSoon title="Page not found" />} />
+        <Route
+          path="/cart"
+          element={
+            <PublicLayout>
+              <Cart />
+            </PublicLayout>
+          }
+        />
 
-        </Routes>
-      </main>
+        <Route
+          path="/wishlist"
+          element={
+            <PublicLayout>
+              <Wishlist />
+            </PublicLayout>
+          }
+        />
 
-      {/* FOOTER */}
-      <Footer />
+        <Route
+          path="/about"
+          element={
+            <PublicLayout>
+              <About />
+            </PublicLayout>
+          }
+        />
 
+        <Route
+          path="/contact"
+          element={
+            <PublicLayout>
+              <Contact />
+            </PublicLayout>
+          }
+        />
+
+        <Route
+          path="/privacy"
+          element={
+            <PublicLayout>
+              <Privacy />
+            </PublicLayout>
+          }
+        />
+
+        {/*ADMIN (NO NAVBAR, FOOTER INCLUDED)*/}
+        <Route
+          path="/admin"
+          element={
+            <AdminWrapper>
+              <AdminLayout />
+            </AdminWrapper>
+          }
+        >
+          <Route index element={<AdminOverview />} />
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="categories" element={<AdminCategories />} />
+          <Route path="orders" element={<AdminOrders />} />
+        </Route>
+
+        {/*FALLBACK */}
+        <Route
+          path="*"
+          element={
+            <PublicLayout>
+              <ComingSoon title="Page not found" />
+            </PublicLayout>
+          }
+        />
+
+      </Routes>
     </div>
   );
 }
