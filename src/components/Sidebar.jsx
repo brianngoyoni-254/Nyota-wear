@@ -1,5 +1,10 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Box, Tags, ShoppingBag } from "lucide-react";
+import {
+  LayoutDashboard,
+  Box,
+  Tags,
+  ShoppingBag
+} from "lucide-react";
 
 function Sidebar() {
   const linkClass = ({ isActive }) =>
@@ -10,9 +15,23 @@ function Sidebar() {
     }`;
 
   return (
-    <aside className="w-64 min-h-screen bg-zinc-950 border-r border-zinc-800 p-4">
-      <h2 className="text-xl font-bold mb-8 px-2">Admin Panel</h2>
+    <aside
+      className="
+        fixed top-0 left-0
+        h-screen w-64
+        bg-zinc-950
+        border-r border-zinc-800
+        p-4
+        overflow-y-auto
+        z-50
+      "
+    >
+      {/* TITLE */}
+      <h2 className="text-xl font-bold mb-8 px-2">
+        Admin Panel
+      </h2>
 
+      {/* NAV */}
       <nav className="space-y-2">
         <NavLink to="/admin" end className={linkClass}>
           <LayoutDashboard size={18} />

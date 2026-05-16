@@ -16,9 +16,7 @@ function AdminProducts() {
 
   const [editingProduct, setEditingProduct] = useState(null);
 
-  
   // PRODUCTS
-  
   async function handleSaveProduct(form) {
     if (editingProduct) {
       await updateProduct(editingProduct.id, form);
@@ -35,9 +33,7 @@ function AdminProducts() {
     await reload();
   }
 
-  
   // LOADING STATE
-  
   if (loading) {
     return (
       <div className="p-6 text-zinc-400">
@@ -46,13 +42,12 @@ function AdminProducts() {
     );
   }
 
-  
   // UI
-  
   return (
-    <section className="space-y-8">
+    <section className="w-full max-w-full overflow-x-hidden space-y-8">
+
       {/* HEADER */}
-      <div>
+      <div className="w-full">
         <h1 className="text-3xl font-bold">Products</h1>
         <p className="text-zinc-500 text-sm">
           Manage your store products
@@ -60,28 +55,33 @@ function AdminProducts() {
       </div>
 
       {/* PRODUCT FORM */}
-      <ProductForm
-        categories={categories}
-        onSubmit={handleSaveProduct}
-        editingProduct={editingProduct}
-        onCancelEdit={() => setEditingProduct(null)}
-      />
+      <div className="w-full max-w-full overflow-x-hidden">
+        <ProductForm
+          categories={categories}
+          onSubmit={handleSaveProduct}
+          editingProduct={editingProduct}
+          onCancelEdit={() => setEditingProduct(null)}
+        />
+      </div>
 
       {/* PRODUCTS GRID */}
-      {products.length === 0 ? (
-        <p className="text-zinc-500">No products found.</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onDelete={handleDeleteProduct}
-              onEdit={setEditingProduct}
-            />
-          ))}
-        </div>
-      )}
+      <div className="w-full max-w-full overflow-x-hidden">
+        {products.length === 0 ? (
+          <p className="text-zinc-500">No products found.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 w-full">
+            {products.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onDelete={handleDeleteProduct}
+                onEdit={setEditingProduct}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
     </section>
   );
 }

@@ -14,7 +14,6 @@ function ProductCard({
   onDelete,
   onEdit
 }) {
-  // SUPPORT BOTH OLD image AND NEW images[]
   const images =
     product.images?.length > 0
       ? product.images
@@ -22,49 +21,46 @@ function ProductCard({
       ? [product.image]
       : [];
 
-  const [currentImage, setCurrentImage] =
-    useState(0);
+  const [currentImage, setCurrentImage] = useState(0);
 
-  // CHECK IF ADMIN CARD
   const isAdminCard = onDelete && onEdit;
 
-  // WISHLIST CONTEXT
-  const {
-    toggleWishlist,
-    isWishlisted
-  } = useWishlist();
-
+  const { toggleWishlist, isWishlisted } = useWishlist();
   const liked = isWishlisted(product.id);
 
-  // NEXT IMAGE
   function nextImage() {
     setCurrentImage((prev) =>
-      prev === images.length - 1
-        ? 0
-        : prev + 1
+      prev === images.length - 1 ? 0 : prev + 1
     );
   }
 
-  // PREVIOUS IMAGE
   function prevImage() {
     setCurrentImage((prev) =>
-      prev === 0
-        ? images.length - 1
-        : prev - 1
+      prev === 0 ? images.length - 1 : prev - 1
     );
   }
 
   return (
-    <div className="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800">
+    <div className="
+      w-full max-w-full min-w-0
+      bg-zinc-900 rounded-2xl
+      overflow-hidden
+      border border-zinc-800
+      flex flex-col
+    ">
 
       {/* IMAGE SECTION */}
-      <div className="relative h-72 bg-black flex items-center justify-center overflow-hidden">
+      <div className="
+        relative h-72 bg-black
+        flex items-center justify-center
+        overflow-hidden w-full
+      ">
 
-        {/* WISHLIST ICON (ONLY FOR SHOP / PUBLIC VIEW) */}
+        {/* WISHLIST ICON */}
         {!isAdminCard && (
           <button
             onClick={() => toggleWishlist(product)}
-            className="absolute top-3 right-3 bg-zinc-900/70 p-2 rounded-full hover:scale-110 transition"
+            className="absolute top-3 right-3 bg-zinc-900/70 p-2 rounded-full hover:scale-110 transition z-10"
           >
             <Heart
               size={20}
@@ -79,11 +75,16 @@ function ProductCard({
           <img
             src={images[currentImage]}
             alt={product.name}
-            className="w-full h-full object-contain p-4"
+            className="
+              w-full h-full
+              object-contain
+              p-4
+              max-w-full
+            "
           />
         )}
 
-        {/* PREVIOUS BUTTON */}
+        {/* LEFT */}
         {images.length > 1 && (
           <button
             type="button"
@@ -94,7 +95,7 @@ function ProductCard({
           </button>
         )}
 
-        {/* NEXT BUTTON */}
+        {/* RIGHT */}
         {images.length > 1 && (
           <button
             type="button"
@@ -105,7 +106,7 @@ function ProductCard({
           </button>
         )}
 
-        {/* IMAGE COUNTER */}
+        {/* COUNTER */}
         {images.length > 1 && (
           <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-zinc-900/80 text-xs px-3 py-1 rounded-full">
             {currentImage + 1} / {images.length}
@@ -114,10 +115,10 @@ function ProductCard({
       </div>
 
       {/* CONTENT */}
-      <div className="p-5">
+      <div className="p-5 w-full min-w-0">
 
-        {/* PRODUCT NAME */}
-        <h2 className="text-xl font-bold mb-3 font-barlow">
+        {/* NAME */}
+        <h2 className="text-xl font-bold mb-3 font-barlow break-words">
           {product.name}
         </h2>
 
@@ -126,7 +127,7 @@ function ProductCard({
           KES {product.price}
         </p>
 
-        {/* VIEW DETAILS (ONLY FOR SHOP / PUBLIC) */}
+        {/* VIEW DETAILS */}
         {!isAdminCard && (
           <Link
             to={`/product/${product.id}`}
@@ -138,8 +139,7 @@ function ProductCard({
 
         {/* ADMIN ACTIONS */}
         {isAdminCard && (
-          <div className="flex gap-3 mt-5">
-
+          <div className="flex gap-3 mt-5 flex-wrap">
             <button
               onClick={() => onEdit(product)}
               className="bg-white text-black px-4 py-2 rounded-lg font-medium"
@@ -153,9 +153,9 @@ function ProductCard({
             >
               Delete
             </button>
-
           </div>
         )}
+
       </div>
     </div>
   );

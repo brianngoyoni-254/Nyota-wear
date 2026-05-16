@@ -18,7 +18,7 @@ function ProductForm({
   const [form, setForm] = useState(initialForm);
   const [currentImage, setCurrentImage] = useState(0);
 
-  // ✅ FIX: proper sync for edit mode
+  // SYNC EDIT MODE
   useEffect(() => {
     if (editingProduct) {
       setForm({
@@ -93,151 +93,142 @@ function ProductForm({
   const images = form.images || [];
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-zinc-900 p-6 rounded-2xl mb-10 space-y-5"
-    >
-      <h2 className="text-xl font-semibold">
-        {editingProduct ? "Edit Product" : "Add Product"}
-      </h2>
+    <div className="w-full overflow-x-hidden">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-zinc-900 p-6 rounded-2xl mb-10 space-y-5 w-full max-w-full"
+      >
+        <h2 className="text-xl font-semibold">
+          {editingProduct ? "Edit Product" : "Add Product"}
+        </h2>
 
-      {/* IMAGE PREVIEW SECTION */}
-      {images.length > 0 && (
-        <div className="relative w-full h-64 bg-black rounded-xl overflow-hidden flex items-center justify-center">
+        {/* IMAGE PREVIEW */}
+        {images.length > 0 && (
+          <div className="relative w-full h-64 bg-black rounded-xl overflow-hidden flex items-center justify-center">
+            <img
+              src={images[currentImage]}
+              alt="product"
+              className="w-full h-full object-contain p-4"
+            />
 
-          {/* IMAGE */}
-          <img
-            src={images[currentImage]}
-            alt="product"
-            className="w-full h-full object-contain p-4"
-          />
+            <button
+              type="button"
+              onClick={() => removeImage(currentImage)}
+              className="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs"
+            >
+              ✕
+            </button>
 
-          {/* DELETE IMAGE */}
+            {images.length > 1 && (
+              <button
+                type="button"
+                onClick={prevImage}
+                className="absolute left-3 bg-zinc-900/80 px-3 py-2 rounded-full"
+              >
+                ‹
+              </button>
+            )}
+
+            {images.length > 1 && (
+              <button
+                type="button"
+                onClick={nextImage}
+                className="absolute right-3 bg-zinc-900/80 px-3 py-2 rounded-full"
+              >
+                ›
+              </button>
+            )}
+
+            {images.length > 1 && (
+              <div className="absolute bottom-3 bg-zinc-900/80 px-3 py-1 rounded-full text-xs">
+                {currentImage + 1} / {images.length}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* INPUTS */}
+        <input
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          placeholder="Product Name"
+          className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
+          required
+        />
+
+        <input
+          name="price"
+          type="number"
+          value={form.price}
+          onChange={handleChange}
+          placeholder="Price"
+          className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
+          required
+        />
+
+        <textarea
+          name="description"
+          value={form.description}
+          onChange={handleChange}
+          placeholder="Description"
+          className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
+        />
+
+        <input
+          type="file"
+          multiple
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
+        />
+
+        <input
+          name="stock"
+          type="number"
+          value={form.stock}
+          onChange={handleChange}
+          placeholder="Stock"
+          className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
+          required
+        />
+
+        <select
+          name="category"
+          value={form.category}
+          onChange={handleChange}
+          className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
+          required
+        >
+          <option value="">Select category</option>
+          {categories.map((c) => (
+            <option key={c.id} value={c.name}>
+              {c.name}
+            </option>
+          ))}
+        </select>
+
+        {/* ACTIONS */}
+        <div className="flex gap-3 flex-wrap">
           <button
-            type="button"
-            onClick={() => removeImage(currentImage)}
-            className="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs"
+            type="submit"
+            className="bg-white text-black px-6 py-3 rounded-xl font-semibold"
           >
-            ✕
+            Save Product
           </button>
 
-          {/* LEFT ARROW */}
-          {images.length > 1 && (
+          {editingProduct && (
             <button
               type="button"
-              onClick={prevImage}
-              className="absolute left-3 bg-zinc-900/80 px-3 py-2 rounded-full"
+              onClick={onCancelEdit}
+              className="border border-zinc-700 px-6 py-3 rounded-xl"
             >
-              ‹
+              Cancel
             </button>
-          )}
-
-          {/* RIGHT ARROW */}
-          {images.length > 1 && (
-            <button
-              type="button"
-              onClick={nextImage}
-              className="absolute right-3 bg-zinc-900/80 px-3 py-2 rounded-full"
-            >
-              ›
-            </button>
-          )}
-
-          {/* COUNTER */}
-          {images.length > 1 && (
-            <div className="absolute bottom-3 bg-zinc-900/80 px-3 py-1 rounded-full text-xs">
-              {currentImage + 1} / {images.length}
-            </div>
           )}
         </div>
-      )}
-
-      {/* NAME */}
-      <input
-        name="name"
-        value={form.name}
-        onChange={handleChange}
-        placeholder="Product Name"
-        className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
-        required
-      />
-
-      {/* PRICE */}
-      <input
-        name="price"
-        type="number"
-        value={form.price}
-        onChange={handleChange}
-        placeholder="Price"
-        className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
-        required
-      />
-
-      {/* DESCRIPTION */}
-      <textarea
-        name="description"
-        value={form.description}
-        onChange={handleChange}
-        placeholder="Description"
-        className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
-      />
-
-      {/* UPLOAD */}
-      <input
-        type="file"
-        multiple
-        accept="image/*"
-        onChange={handleImageUpload}
-        className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
-      />
-
-      {/* STOCK */}
-      <input
-        name="stock"
-        type="number"
-        value={form.stock}
-        onChange={handleChange}
-        placeholder="Stock"
-        className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
-        required
-      />
-
-      {/* CATEGORY */}
-      <select
-        name="category"
-        value={form.category}
-        onChange={handleChange}
-        className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3"
-        required
-      >
-        <option value="">Select category</option>
-        {categories.map((c) => (
-          <option key={c.id} value={c.name}>
-            {c.name}
-          </option>
-        ))}
-      </select>
-
-      {/* ACTIONS */}
-      <div className="flex gap-3">
-        <button
-          type="submit"
-          className="bg-white text-black px-6 py-3 rounded-xl font-semibold"
-        >
-          Save Product
-        </button>
-
-        {editingProduct && (
-          <button
-            type="button"
-            onClick={onCancelEdit}
-            className="border border-zinc-700 px-6 py-3 rounded-xl"
-          >
-            Cancel
-          </button>
-        )}
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 
