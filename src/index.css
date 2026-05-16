@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+:root {
+  --font-sans: 'Inter', sans-serif;
+  --font-barlow: 'Barlow', sans-serif;
+
+  --color-primary: #ffffff;
+  --color-dark: #0a0a0a;
+  --color-card: #161616;
+  --color-muted: #a1a1aa;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-dark);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-barlow);
+}
