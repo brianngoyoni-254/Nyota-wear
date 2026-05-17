@@ -17,14 +17,13 @@ function AdminProducts() {
   const [editingProduct, setEditingProduct] = useState(null);
   const [saving, setSaving] = useState(false);
 
-  // =========================
-  // SAVE PRODUCT (FIXED + SAFE)
-  // =========================
+  
+  // SAVE PRODUCT 
   async function handleSaveProduct(form) {
     try {
       setSaving(true);
 
-      // 🔥 CLEAN DATA BEFORE SENDING TO BACKEND
+      //  CLEAN DATA BEFORE SENDING TO BACKEND
       const cleanedForm = {
         ...form,
         name: form.name?.trim(),
@@ -57,9 +56,9 @@ function AdminProducts() {
     }
   }
 
-  // =========================
+  
   // DELETE PRODUCT
-  // =========================
+  
   async function handleDeleteProduct(id) {
     try {
       await deleteProduct(id);
@@ -70,9 +69,9 @@ function AdminProducts() {
     }
   }
 
-  // =========================
+  
   // LOADING STATE
-  // =========================
+  
   if (loading) {
     return (
       <div className="p-6 text-zinc-400">
@@ -81,9 +80,9 @@ function AdminProducts() {
     );
   }
 
-  // =========================
+  
   // UI
-  // =========================
+  
   return (
     <section className="w-full max-w-full overflow-x-hidden space-y-8">
 

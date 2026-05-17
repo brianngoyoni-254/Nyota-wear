@@ -49,7 +49,7 @@ function HomeLayout() {
   );
 }
 
-/* ADMIN LAYOUT (NO Navbar, BUT Footer ON) */
+
 function AdminWrapper({ children }) {
   return (
     <>
