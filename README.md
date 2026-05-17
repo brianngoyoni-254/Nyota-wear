@@ -1,16 +1,175 @@
-# React + Vite
+#  Nyota Wear – E-Commerce Admin Dashboard (React SPA)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Nyota Wear is a modern React-based Single Page Application (SPA) built as an e-commerce admin and shopping platform.  
+It demonstrates advanced React concepts including state management, hooks, routing, API integration, and automated testing.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+##  Live Features
 
-## React Compiler
+###  Public Pages
+- Home landing page
+- Product shop page
+- Product details page
+- Cart system with checkout simulation
+- Wishlist functionality
+- About, Contact, and Privacy pages
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Admin Dashboard
+- Product management (Create, Read, Update, Delete)
+- Category management
+- Orders overview
+- Real-time analytics dashboard (charts)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+##  Tech Stack
+
+- React (Vite)
+- React Router DOM
+- Context API (State Management)
+- Tailwind CSS
+- Recharts (Analytics Charts)
+- JSON Server (Mock Backend)
+- Vitest + React Testing Library (Testing)
+
+---
+
+##  Key Features
+
+###  State Management
+- CartContext (add/remove items, total price calculation)
+- WishlistContext (toggle favorites)
+- Custom hooks:
+  - useProducts
+  - useAdminData
+
+---
+
+### CRUD Functionality
+Full API integration using JSON Server:
+
+- **GET** – Fetch products, categories, orders
+- **POST** – Add products & categories
+- **PATCH** – Update product details
+- **DELETE** – Remove products & categories
+
+---
+
+###  Search Functionality
+- Real-time product filtering on Shop page
+- Case-insensitive search implementation
+
+---
+
+###  Routing (SPA Navigation)
+Built using React Router:
+
+- `/` Home
+- `/shop`
+- `/product/:id`
+- `/cart`
+- `/wishlist`
+- `/admin`
+- `/admin/products`
+- `/admin/categories`
+- `/admin/orders`
+
+---
+
+## Testing Suite
+
+This project includes automated tests using Vitest and React Testing Library.
+
+###  Tested Areas
+- Component rendering (Navbar, SearchBar)
+- User interaction (typing, clicks)
+- Context logic (Cart system)
+- API CRUD operations (mocked fetch)
+- Routing behavior
+
+###  Run Tests
+```bash
+npm test
+````
+
+###  Run Coverage
+
+```bash
+npm run coverage
+```
+
+---
+
+## Installation & Setup
+
+```bash
+# Clone repository
+git clone 
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+```
+
+---
+
+##  Backend (JSON Server)
+
+Make sure to run the mock backend:
+
+```bash
+json-server --watch db.json --port 3001
+```
+
+---
+
+## Project Structure
+
+```
+src/
+ ├── components/
+ ├── pages/
+ ├── context/
+ ├── hooks/
+ ├── services/
+ ├── test/
+```
+
+---
+
+##  Learning Outcomes
+
+This project demonstrates:
+
+* Advanced React hooks usage
+* Component-based architecture
+* Client-side routing (SPA)
+* State management with Context API
+* API integration with CRUD operations
+* Automated testing with Vitest
+* Real-world e-commerce UI logic
+
+---
+
+## Author
+
+Built by Brian Ngoyoni
+For educational purposes (React Advanced Module)
+
+---
+
+##  Notes
+
+* All data is stored in a mock JSON server
+* No real payment system is integrated
+* Designed for learning and demonstration of frontend skills
+
+````
+
+
+
+
+
