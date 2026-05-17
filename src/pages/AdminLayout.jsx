@@ -21,9 +21,14 @@ function AdminLayout() {
       {/* SIDEBAR */}
       <aside
         className={`
-          fixed md:static z-40
-          top-0 left-0 h-full
-          w-64 bg-black border-r border-zinc-800
+          fixed md:sticky
+          top-0 left-0
+          min-h-screen
+          w-64
+          bg-black
+          border-r border-zinc-800
+          z-40
+          overflow-y-auto
           transform transition-transform duration-300
           ${open ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0
@@ -46,11 +51,9 @@ function AdminLayout() {
           flex-1
           min-w-0
           w-full
-          md:ml-64
           pt-16 md:pt-0
-          p-4 sm:p-6 lg:p-8
+          p-4 sm:p-5 lg:p-6
           overflow-x-hidden
-          max-w-full
         "
       >
         <Outlet />
