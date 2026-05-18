@@ -7,7 +7,7 @@ function AdminLayout() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex bg-black text-white min-h-screen overflow-x-hidden">
+    <div className="flex h-screen bg-black text-white overflow-hidden">
 
       {/* MOBILE TOP BAR */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 border-b border-zinc-800 bg-black">
@@ -21,9 +21,9 @@ function AdminLayout() {
       {/* SIDEBAR */}
       <aside
         className={`
-          fixed md:sticky
+          fixed md:relative
           top-0 left-0
-          min-h-screen
+          h-screen
           w-64
           bg-black
           border-r border-zinc-800
@@ -50,10 +50,11 @@ function AdminLayout() {
         className="
           flex-1
           min-w-0
-          w-full
+          h-screen
+          overflow-y-auto
+          overflow-x-hidden
           pt-16 md:pt-0
           p-4 sm:p-5 lg:p-6
-          overflow-x-hidden
         "
       >
         <Outlet />
